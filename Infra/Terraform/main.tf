@@ -4,7 +4,7 @@ provider "aws" {
  
 # Create an ECR repository
 resource "aws_ecr_repository" "my_ecr_repo" {
-  name = "my-ecr-repo"  # Replace with your desired ECR repository name
+  name = "second-tf-repo"  # Replace with your desired ECR repository name
 }
  
 # Create an EKS cluster
