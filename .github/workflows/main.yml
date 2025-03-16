@@ -22,11 +22,11 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-east-1
+          aws-region: us-east-1
 
       - name: Log in to Amazon ECR
         run: |
-          aws ecr get-login-password --region eu-east-1 | docker login --username AWS --password-stdin 235494784214.dkr.ecr.eu-east-1.amazonaws.com
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 235494784214.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Set up JDK 17
         uses: actions/setup-java@v2
