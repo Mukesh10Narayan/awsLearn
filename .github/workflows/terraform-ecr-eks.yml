@@ -33,12 +33,15 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
  
       - name: Terraform Init
-        run: terraform init -chdir=Infra/Terraform
+        run: terraform init
+        working-directory: Infra/Terraform
  
       - name: Terraform Apply (Create)
         if: ${{ github.event.inputs.action == 'create' }}
-        run: terraform apply -auto-approve -chdir=Infra/Terraform
+        run: terraform apply -auto-approve
+        working-directory: Infra/Terraform
  
       - name: Terraform Destroy (Destroy)
         if: ${{ github.event.inputs.action == 'destroy' }}
-        run: terraform destroy -auto-approve -chdir=Infra/Terraform
+        run: terraform destroy -auto-approve
+        working-directory: Infra/Terraform
