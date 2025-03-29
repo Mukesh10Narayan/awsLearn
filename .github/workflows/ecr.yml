@@ -1,4 +1,4 @@
-name: Terraform ECR and EKS Management
+name: ECR Management
 
 on:
   workflow_dispatch:
