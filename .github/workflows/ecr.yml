@@ -1,0 +1,52 @@
+name: Terraform ECR and EKS Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      ecr_name:
+        description: "The name of the ECR repository"
+        required: true
+        default: "my-ecr-repo"  # Default value for ECR name
+      region:
+        description: "The AWS region to create the ECR in"
+        required: true
+        default: "us-east-1"  # Default value for the region
+      action:
+        description: "Action to perform (create or destroy)"
+        required: true
+        default: "create"
+        type: choice
+        options:
+          - create
+          - destroy
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ github.event.inputs.region }}
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: Infra/Terraform/ecr
+
+      - name: Terraform Apply (Create)
+        if: ${{ github.event.inputs.action == 'create' }}
+        run: terraform apply -auto-approve -var="region=${{ github.event.inputs.region }}" -var="ecr_name=${{ github.event.inputs.ecr_name }}"
+        working-directory: Infra/Terraform/ecr
+
+      - name: Terraform Destroy (Destroy)
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        run: terraform destroy -auto-approve -var="region=${{ github.event.inputs.region }}" -var="ecr_name=${{ github.event.inputs.ecr_name }}"
+        working-directory: Infra/Terraform/ecr
