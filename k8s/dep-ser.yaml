@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-learn-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-learn
+  template:
+    metadata:
+      labels:
+        app: aws-learn
+    spec:
+      containers:
+      - name: aws-learn
+        image: aws-learn:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080  # Change to the port your Spring Boot app listens to
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aws-learn-service
+spec:
+  selector:
+    app: aws-learn
+  ports:
+    - protocol: TCP
+      port: 8080  # Port to expose
+      targetPort: 8080  # Port where your app is running inside the container
+  type: NodePort  # This creates a LoadBalancer service

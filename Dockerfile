@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:24
 EXPOSE 8080
-ADD target/awsLearn-*.jar awsLearn.jar
-ENTRYPOINT ["java","-jar","/awsLearn.jar"]
+ADD target/aws-learn-*.jar aws-learn.jar
+ENTRYPOINT ["java","-jar","/aws-learn.jar"]
