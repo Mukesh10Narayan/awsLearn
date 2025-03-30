@@ -41,7 +41,7 @@ jobs:
         run: docker build -t awslearn1 .
 
       - name: Tag Docker image
-        run: docker tag awslearn1:latest 235494784214.dkr.ecr.us-east-1.amazonaws.com/second-tf-repo:latest
+        run: docker tag awslearn1:latest 235494784214.dkr.ecr.us-east-1.amazonaws.com/my-ecr-repo:latest
 
       - name: Push Docker image to ECR
-        run: docker push 235494784214.dkr.ecr.us-east-1.amazonaws.com/second-tf-repo:latest
+        run: docker push 235494784214.dkr.ecr.us-east-1.amazonaws.com/my-ecr-repo:latest
