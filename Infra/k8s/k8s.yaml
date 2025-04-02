@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aws-learn
-        image: aws-learn:latest
+        image: 235494784214.dkr.ecr.us-east-1.amazonaws.com/my-ecr-repos:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080  # Change to the port your Spring Boot app listens to
@@ -30,4 +30,4 @@ spec:
     - protocol: TCP
       port: 8080  # Port to expose
       targetPort: 8080  # Port where your app is running inside the container
-  type: NodePort  # This creates a LoadBalancer service
+  type: LoadBalancer  # This creates a LoadBalancer service
